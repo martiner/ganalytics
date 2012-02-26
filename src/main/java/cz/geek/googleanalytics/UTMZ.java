@@ -17,7 +17,9 @@ import java.util.Map;
  */
 public class UTMZ {
 
-    private String domainNameHash;
+	public static final String COOKIE_NAME = "__utmz";
+
+	private String domainNameHash;
 
     private Date timestamp;
 
@@ -50,7 +52,7 @@ public class UTMZ {
         if (dots.length != 5)
             throw new UTMZParseException("Expecting 5 elements divided by dot, but have " + dots.length);
         domainNameHash = dots[0];
-        timestamp = new Date(parseInt(dots[1], "date"));
+        timestamp = new Date(parseLong(dots[1], "date") * 1000);
         visits = parseInt(dots[2], "visits");
         sources = parseInt(dots[3], "sources");
 
@@ -67,13 +69,21 @@ public class UTMZ {
         content = map.get("utmcct");
     }
 
-    private int parseInt(String source, String field) throws UTMZParseException {
-        try {
-            return Integer.parseInt(source);
-        } catch (NumberFormatException e) {
-            throw new UTMZParseException("Can not parse " + field + " from " + source, e);
-        }
-    }
+	private int parseInt(String source, String field) throws UTMZParseException {
+	    try {
+	        return Integer.parseInt(source);
+	    } catch (NumberFormatException e) {
+	        throw new UTMZParseException("Can not parse " + field + " from " + source, e);
+	    }
+	}
+
+	private long parseLong(String source, String field) throws UTMZParseException {
+	    try {
+	        return Long.parseLong(source);
+	    } catch (NumberFormatException e) {
+	        throw new UTMZParseException("Can not parse " + field + " from " + source, e);
+	    }
+	}
 
     /**
      * hash of your domain name
@@ -147,28 +157,27 @@ public class UTMZ {
         return content;
     }
 
-    public static UTMZ valueOf(Cookie cookie) throws UTMZParseException {
-        Validate.notNull(cookie);
-        return new UTMZ(cookie.getValue());
+    public static UTMZ valueOf(Cookie cookie) {
+	    if (cookie == null)
+			return null;
+	    try {
+		    return new UTMZ(cookie.getValue());
+	    } catch (UTMZParseException e) {
+		    return null;
+	    }
     }
 
     /**
      * Parse UTMZ for given domain name hash from given cookie array
      * @param cookies cookies from request
-     * @param domainNameHash domain name hash
      * @return UTMZ instance or null if not found or parsing failed
      */
-    public static UTMZ valueOf(Cookie[] cookies, String domainNameHash) {
-        Validate.notEmpty(domainNameHash);
+    public static UTMZ valueOf(Cookie[] cookies) {
         if (cookies == null)
             return null;
         for (Cookie cookie: cookies) {
-            if ("__utmz".equals(cookie.getName())) {
-                try {
-                    UTMZ utmz = valueOf(cookie);
-                    if (domainNameHash.equals(utmz.getDomainNameHash()))
-                        return utmz;
-                } catch (UTMZParseException ignored) { }
+            if (COOKIE_NAME.equals(cookie.getName())) {
+				return valueOf(cookie);
             }
         }
         return null;

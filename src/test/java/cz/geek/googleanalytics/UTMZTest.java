@@ -12,7 +12,7 @@ public class UTMZTest {
     public void direct() throws UTMZParseException {
         UTMZ utmz = new UTMZ("114442907.1315070575.1.1.utmccn=(direct)|utmcsr=(direct)|utmcmd=(none)");
         assertEquals("114442907", utmz.getDomainNameHash());
-        assertEquals(new Date(1315070575), utmz.getTimestamp());
+        assertEquals(new Date(1315070575 * 1000L), utmz.getTimestamp());
         assertEquals(1, utmz.getVisits());
         assertEquals(1, utmz.getSources());
         assertEquals("(direct)", utmz.getCampaign());
@@ -24,7 +24,7 @@ public class UTMZTest {
     public void organic() throws UTMZParseException {
         UTMZ utmz = new UTMZ("114442907.1327488330.1.1.utmccn=(organic)|utmcsr=google|utmctr=magvia|utmcmd=organic");
         assertEquals("114442907", utmz.getDomainNameHash());
-        assertEquals(new Date(1327488330), utmz.getTimestamp());
+        assertEquals(new Date(1327488330 * 1000L), utmz.getTimestamp());
         assertEquals(1, utmz.getVisits());
         assertEquals(1, utmz.getSources());
         assertEquals("(organic)", utmz.getCampaign());
@@ -37,7 +37,7 @@ public class UTMZTest {
     public void referral() throws UTMZParseException {
         UTMZ utmz = new UTMZ("114442907.1327488399.1.1.utmccn=(referral)|utmcsr=slatina.macroware.cz|utmcct=/magvia.jsp|utmcmd=referral");
         assertEquals("114442907", utmz.getDomainNameHash());
-        assertEquals(new Date(1327488399), utmz.getTimestamp());
+        assertEquals(new Date(1327488399 * 1000L), utmz.getTimestamp());
         assertEquals(1, utmz.getVisits());
         assertEquals(1, utmz.getSources());
         assertEquals("(referral)", utmz.getCampaign());
@@ -50,7 +50,7 @@ public class UTMZTest {
     public void cpc() throws UTMZParseException {
         UTMZ utmz = new UTMZ("129313107.1327488555.1.1.utmcsr=google|utmccn=vk_vk%20-%20csob%20pojistovna%20S_csob%20pojistovna|utmcmd=cpc|utmctr=%C4%8Dsob%20poji%C5%A1%C5%A5ovna|utmcct=online");
         assertEquals("129313107", utmz.getDomainNameHash());
-        assertEquals(new Date(1327488555), utmz.getTimestamp());
+        assertEquals(new Date(1327488555 * 1000L), utmz.getTimestamp());
         assertEquals(1, utmz.getVisits());
         assertEquals(1, utmz.getSources());
         assertEquals("vk_vk%20-%20csob%20pojistovna%20S_csob%20pojistovna", utmz.getCampaign());
