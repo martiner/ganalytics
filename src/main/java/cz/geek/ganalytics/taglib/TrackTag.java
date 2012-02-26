@@ -1,4 +1,4 @@
-package cz.geek.googleanalytics.taglib;
+package cz.geek.ganalytics.taglib;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.Tag;

@@ -1,9 +1,8 @@
-package cz.geek.googleanalytics;
+package cz.geek.ganalytics.cookies;
 
 import org.apache.commons.lang.Validate;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,15 +41,15 @@ public class UTMZ {
      * @param cookie
      * @see #valueOf(javax.servlet.http.Cookie)
      */
-    public UTMZ(String cookie) throws UTMZParseException {
+    public UTMZ(String cookie) throws CookieParseException {
         Validate.notEmpty(cookie);
         parse(cookie);
     }
 
-    protected void parse(String cookie) throws UTMZParseException {
+    protected void parse(String cookie) throws CookieParseException {
         String[] dots = cookie.split("\\.", 5);
         if (dots.length != 5)
-            throw new UTMZParseException("Expecting 5 elements divided by dot, but have " + dots.length);
+            throw new CookieParseException("Expecting 5 elements divided by dot, but have " + dots.length);
         domainNameHash = dots[0];
         timestamp = new Date(parseLong(dots[1], "date") * 1000);
         visits = parseInt(dots[2], "visits");
@@ -69,19 +68,19 @@ public class UTMZ {
         content = map.get("utmcct");
     }
 
-	private int parseInt(String source, String field) throws UTMZParseException {
+	private int parseInt(String source, String field) throws CookieParseException {
 	    try {
 	        return Integer.parseInt(source);
 	    } catch (NumberFormatException e) {
-	        throw new UTMZParseException("Can not parse " + field + " from " + source, e);
+	        throw new CookieParseException("Can not parse " + field + " from " + source, e);
 	    }
 	}
 
-	private long parseLong(String source, String field) throws UTMZParseException {
+	private long parseLong(String source, String field) throws CookieParseException {
 	    try {
 	        return Long.parseLong(source);
 	    } catch (NumberFormatException e) {
-	        throw new UTMZParseException("Can not parse " + field + " from " + source, e);
+	        throw new CookieParseException("Can not parse " + field + " from " + source, e);
 	    }
 	}
 
@@ -162,7 +161,7 @@ public class UTMZ {
 			return null;
 	    try {
 		    return new UTMZ(cookie.getValue());
-	    } catch (UTMZParseException e) {
+	    } catch (CookieParseException e) {
 		    return null;
 	    }
     }

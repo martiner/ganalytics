@@ -12,7 +12,7 @@
 	<tag>
 		<description>Renders an HTML 'form' tag and exposes a binding path to inner tags for binding.</description>
 		<name>track</name>
-		<tag-class>cz.geek.googleanalytics.taglib.TrackTag</tag-class>
+		<tag-class>cz.geek.ganalytics.taglib.TrackTag</tag-class>
 		<body-content>JSP</body-content>
 		<attribute>
 			<description>Optional parameter to indicate what page URL to track metrics under. When using this option, use a beginning slash (/) to indicate the page URL.</description>
@@ -31,7 +31,7 @@
 	<tag>
 		<description>Main logic for GATC (Google Analytic Tracker Code). If linker functionalities are enabled, it attempts to extract cookie values from the URL. Otherwise, it tries to extract cookie values from document.cookie. It also updates or creates cookies as necessary, then writes them back to the document object. Gathers all the appropriate metrics to send to the UCFE (Urchin Collector Front-end). </description>
 		<name>trackPageview</name>
-		<tag-class>cz.geek.googleanalytics.taglib.TrackPageviewTag</tag-class>
+		<tag-class>cz.geek.ganalytics.taglib.TrackPageviewTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
 			<description>Optional parameter to indicate what page URL to track metrics under. When using this option, use a beginning slash (/) to indicate the page URL.</description>
@@ -44,7 +44,7 @@
 	<tag>
 		<description>Sends both the transaction and item data to the Google Analytics server. This method should be called after _trackPageview(), and used in conjunction with the _addItem() and addTrans() methods. It should be called after items and transaction elements have been set up.</description>
 		<name>trackTrans</name>
-		<tag-class>cz.geek.googleanalytics.taglib.TrackTransTag</tag-class>
+		<tag-class>cz.geek.ganalytics.taglib.TrackTransTag</tag-class>
 		<body-content>JSP</body-content>
 	</tag>
 

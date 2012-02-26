@@ -1,4 +1,4 @@
-package cz.geek.googleanalytics.taglib;
+package cz.geek.ganalytics.taglib;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;

@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>cz.geek</groupId>
-	<artifactId>googleanalytics</artifactId>
+	<artifactId>ganalytics</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
 	<build>
 		<resources>
